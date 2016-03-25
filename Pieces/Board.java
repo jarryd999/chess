@@ -1,10 +1,7 @@
 package Pieces;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 import Model.Color;
 import Model.Player;
@@ -51,10 +48,11 @@ public class Board {
 		//add Kings
 		gameBoard[4][0].addPiece(factory.getPiece("king", Color.WHITE));
 		gameBoard[3][7].addPiece(factory.getPiece("king", Color.BLACK));
+
 	}
 	
 	//construct board from file
-	public Board(String filename, Player p1, Player p2) throws IOException{
+	public Board(String boardInput, Player p1, Player p2) throws IOException{
 		//initialize board and piece factory
 		PieceFactory factory = new PieceFactory();
 		for (int i = 0; i < 8; i++){
@@ -63,12 +61,10 @@ public class Board {
 			}
 		}
 		
-		File file = new File(filename);
-        BufferedReader buffer = new BufferedReader(new FileReader(file));
+        Scanner scanner = new Scanner(boardInput);
         String line;
-        Color color;
         for (int i = 0; i < 8; i++){
-        	line = buffer.readLine();
+        	line = scanner.nextLine();
         	line = line.trim();
         	for (int j = 0; j < 8; j++){
         		switch (line.charAt(j)){
@@ -120,6 +116,7 @@ public class Board {
         		}
         	}
         }
+        scanner.close();
 	}
 	
 	public String toString(){
