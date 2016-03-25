@@ -13,12 +13,17 @@ public class GameController {
 
 		Player white = new Player(Color.WHITE);
 		Player black = new Player(Color.BLACK);
+		
+		//for initial board setup, use default constructor
+		//otherwise, modify inputBoard file to edit
 		Board game = new Board("inputBoard", white, black);
 
 		// print out the board
 		System.out.print(game.toString());
 
 		// get a list of valid moves and print them out
+		//choose which player who's moves you would like to see
+		//with the first actual parameter
 		getMoves(white, game.gameBoard);
 	}
 
