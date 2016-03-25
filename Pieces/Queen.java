@@ -1,17 +1,19 @@
-package Model;
+package Pieces;
 
 import java.util.LinkedList;
 
-public class Rook implements Piece {
+import Model.Color;
+
+public class Queen implements Piece {
 	public Color color;
 
 	// constructor
-	public Rook(Color color) {
+	public Queen(Color color) {
 		this.color = color;
 	}
 
 	public String getType() {
-		return "rook";
+		return "Queen";
 	}
 
 	@Override
@@ -19,9 +21,7 @@ public class Rook implements Piece {
 		int x = spot.x, y = spot.y;
 		LinkedList<GameSquare> output = new LinkedList<GameSquare>();
 
-		// 4 directions to move,
-		// can keep going until a piece is in the way
-
+		// 8 directions:
 		// up
 		if (y < 7) {
 			for (int i = y + 1; i < 8; i++) {
@@ -69,6 +69,65 @@ public class Rook implements Piece {
 					break;
 				} else
 					break;
+			}
+		}
+		// up right
+		if (x < 7 && y < 7) {
+			int i = 1;
+			while (x + i < 8 && y + i < 8) {
+				if (board[x + i][y + i].isAvailable())
+					output.add(board[x + i][y + i]);
+				else {
+					if (board[x + i][y + i].piece.getColor() != this.color)
+						output.add(board[x + i][y + i]);
+					break;
+				}
+				i++;
+			}
+		}
+
+		// down right
+		if (x < 7 && y > 0) {
+			int i = 1;
+			while (x + i < 8 && y - i >= 0) {
+				if (board[x + i][y - i].isAvailable())
+					output.add(board[x + i][y - i]);
+				else {
+					if (board[x + i][y - i].piece.getColor() != this.color)
+						output.add(board[x + i][y - i]);
+					break;
+				}
+				i++;
+			}
+		}
+
+		// up left
+		if (x > 0 && y < 7) {
+			int i = 1;
+			while (x - i >= 0 && y + i < 8) {
+				if (board[x - i][y + i].isAvailable())
+					output.add(board[x - i][y + i]);
+				else {
+					if (board[x - i][y + i].piece.getColor() != this.color)
+						output.add(board[x - i][y + i]);
+					break;
+				}
+				i++;
+			}
+		}
+
+		// up right
+		if (x > 0 && y > 0) {
+			int i = 1;
+			while (x - i >= 0 && y - i >= 0) {
+				if (board[x - i][y - i].isAvailable())
+					output.add(board[x - i][y - i]);
+				else {
+					if (board[x - i][y - i].piece.getColor() != this.color)
+						output.add(board[x - i][y - i]);
+					break;
+				}
+				i++;
 			}
 		}
 		return output;

@@ -1,6 +1,8 @@
-package Model;
+package Pieces;
 
 import java.util.LinkedList;
+
+import Model.Color;
 
 public class King implements Piece {
 	public Color color;
@@ -11,7 +13,7 @@ public class King implements Piece {
 	}
 
 	public String getType() {
-		return "king";
+		return "King";
 	}
 
 	@Override

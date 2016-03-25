@@ -1,10 +1,10 @@
-package Model;
+package Pieces;
 
 import java.util.LinkedList;
 
 public class GameSquare {
 	public int x, y;
-	Piece piece;
+	public Piece piece;
 	
 	public GameSquare(int x, int y){
 		this.x = x;

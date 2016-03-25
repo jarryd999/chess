@@ -2,6 +2,8 @@ package Model;
 
 import java.util.ArrayList;
 
+import Pieces.GameSquare;
+
 public class Player {
 	public Color color;
 	public ArrayList places = new ArrayList<GameSquare>();

@@ -1,6 +1,8 @@
-package Model;
+package Pieces;
 
 import java.util.LinkedList;
+
+import Model.Color;
 
 public interface Piece {
 	public String getType();
