@@ -30,45 +30,55 @@ public class GameController {
 		Player white = new Player(Color.WHITE);
 		Player black = new Player(Color.BLACK);
 
+		// if arguments passed in
+		// generate output based on files
 		if (args.length > 0) {
-			for (int i = 0; i < args.length; i++) {
-				File file = new File(args[i]);
-				BufferedReader buffer = new BufferedReader(new FileReader(file));
+			File file = new File(args[0]);
+			BufferedReader buffer = new BufferedReader(new FileReader(file));
 
-				// read the input file
-				StringBuffer inputBuffer = new StringBuffer();
-				for (int j = 0; j < 8; j++)
-					inputBuffer.append(buffer.readLine() + '\n');
+			// read the board setup
+			StringBuffer inputBuffer = new StringBuffer();
+			for (int j = 0; j < 8; j++)
+				inputBuffer.append(buffer.readLine() + '\n');
+			String boardInput = inputBuffer.toString();
+			
+			//read the player input
+			String playerInput = buffer.readLine();
+			Player playerSelection;
+			//set player choice based on input file
+			if (playerInput.toLowerCase().trim().equals("white"))
+				playerSelection = white;
+			else
+				playerSelection = black;
 
-				String boardInput = inputBuffer.toString();
-				String playerInput = buffer.readLine();
-				Player playerSelection;
-				if (playerInput.toLowerCase().trim().equals("white"))
-					playerSelection = white;
-				else
-					playerSelection = black;
+			// for initial board setup, use default constructor
+			// otherwise, modify inputBoard file to edit
+			Board game = new Board(boardInput, white, black);
 
-				// for initial board setup, use default constructor
-				// otherwise, modify inputBoard file to edit
-				Board game = new Board(boardInput, white, black);
+			// print out the input file name
+			System.out.println(args[0]);
+			// print the board setup
+			System.out.print(game.toString());
 
-				// print out the board
-				System.out.print(game.toString());
-
-				// get a list of valid moves and print them out
-				// choose which player who's moves you would like to see
-				// with the first actual parameter
-				getMoves(playerSelection, game.gameBoard);
-			}
-		} else {
+			// get a list of valid moves and print them out
+			// choose which player who's moves you would like to see
+			// with the first actual parameter
+			getMoves(playerSelection, game.gameBoard);
+			System.out.println();
+			buffer.close();
+		}
+		// if no arguments, do initial chess setup/white player's turn
+		else {
 			Pieces.Board game = new Board();
-			//give players a list of pieces they have
-			for (int i = 0; i < 8; i++){
+			// give players a list of pieces they have
+			for (int i = 0; i < 8; i++) {
 				white.addSquare(game.gameBoard[i][0]);
 				white.addSquare(game.gameBoard[i][1]);
 				black.addSquare(game.gameBoard[i][6]);
 				black.addSquare(game.gameBoard[i][7]);
 			}
+			//print the game board
+			//then get & print list of possible moves
 			System.out.println(game.toString());
 			getMoves(white, game.gameBoard);
 		}
